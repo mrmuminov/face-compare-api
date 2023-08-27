@@ -17,6 +17,11 @@ def main():
     })
 
 
+def decode_base64(data):
+    image_data = re.sub('^data:image/.+;base64,', '', data)
+    return base64.b64decode(image_data)
+
+
 @app.route("/compare", methods=['POST'])
 def compare():
     try:
@@ -24,23 +29,19 @@ def compare():
         passport_base64 = data.get('passport')
         face_base64 = data.get('face')
 
-        def decode_base64(data):
-            image_data = re.sub('^data:image/.+;base64,', '', data)
-            return base64.b64decode(image_data)
-
         start_time = time.time()
 
         passport_bytes = decode_base64(passport_base64)
         face_bytes = decode_base64(face_base64)
 
-        known_image = face_recognition.load_image_file(io.BytesIO(passport_bytes))
-        unknown_image = face_recognition.load_image_file(io.BytesIO(face_bytes))
+        passport_image = face_recognition.load_image_file(io.BytesIO(passport_bytes))
+        face_image = face_recognition.load_image_file(io.BytesIO(face_bytes))
 
-        biden_encoding = face_recognition.face_encodings(known_image)[0]
-        unknown_encoding = face_recognition.face_encodings(unknown_image)[0]
+        passport_encoding = face_recognition.face_encodings(passport_image)[0]
+        face_encoding = face_recognition.face_encodings(face_image)[0]
 
         comparison_start_time = time.time()
-        results = face_recognition.compare_faces([biden_encoding], unknown_encoding)
+        results = face_recognition.compare_faces([passport_encoding], face_encoding)
         comparison_time = time.time() - comparison_start_time
 
         return jsonify({
