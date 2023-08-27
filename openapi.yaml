@@ -1,0 +1,66 @@
+openapi: 3.0.0
+info:
+  title: Face Recognition API
+  description: An API for comparing faces using face recognition.
+  version: 1.0.0
+paths:
+  /:
+    get:
+      summary: Check Server Status
+      description: Use this endpoint to check if the server is operational.
+      responses:
+        '200':
+          description: Server status response
+          content:
+            application/json:
+              example:
+                success: true
+                message: Server is working
+  /compare:
+    post:
+      summary: Compare Faces
+      description: Upload base64-encoded images for face comparison.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                passport:
+                  type: string
+                  description: Base64-encoded passport image data (JPEG or PNG)
+                face:
+                  type: string
+                  description: Base64-encoded face image data (JPEG or PNG)
+              required:
+                - passport
+                - face
+              example:
+                passport: data:image/jpeg;base64,/9j/4AAQSkZ...
+                face: data:image/jpeg;base64,/9j/4AAQSkZ...
+      responses:
+        '200':
+          description: Face comparison response
+          content:
+            application/json:
+              example:
+                success: true
+                match: true
+                message: It's the same person
+                image_save_time: 0.12345
+                comparison_time: 0.23456
+        '400':
+          description: Bad Request - Invalid input data or format
+          content:
+            application/json:
+              example:
+                success: false
+                message: Invalid input data or format
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              example:
+                success: false
+                message: An error occurred while processing the request
