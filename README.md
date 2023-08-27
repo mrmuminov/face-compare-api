@@ -38,10 +38,11 @@ To use the Face Recognition API, you need to send POST requests with base64-enco
 3. Run the API:
 
    ```bash
-   python app.py
+   gunicorn -w 4 'main:app'
    ```
 
-By default, the API will be available at `http://localhost:5000`.
+By default, the API will be available at `http://localhost:8000`.
+And use configure nginx with nginx.conf 
 
 ## Usage
 
