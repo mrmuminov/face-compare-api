@@ -48,8 +48,9 @@ paths:
                 success: true
                 match: true
                 message: It's the same person
-                image_save_time: 0.12345
-                comparison_time: 0.23456
+                meta:
+                  image_save_time: 0.12345
+                  comparison_time: 0.23456
         '400':
           description: Bad Request - Invalid input data or format
           content:
