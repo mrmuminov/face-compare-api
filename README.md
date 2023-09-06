@@ -26,7 +26,7 @@ To use the Face Recognition API, you need to send POST requests with base64-enco
 
    ```bash
    git clone https://github.com/mrmuminov/face-compare-api.git
-   cd face-recognition-api
+   cd face-compare-api 
    ```
 
 2. Install the required packages using pip and the provided `requirements.txt`:
