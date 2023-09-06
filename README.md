@@ -25,7 +25,7 @@ To use the Face Recognition API, you need to send POST requests with base64-enco
 1. Clone this repository:
 
    ```bash
-   git clone https://git.dataprizma.uz/bahriddin/face-compare-api.git
+   git clone https://github.com/mrmuminov/face-compare-api.git
    cd face-recognition-api
    ```
 
